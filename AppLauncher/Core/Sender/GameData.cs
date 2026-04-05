@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,15 +8,15 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PanddLauncher.Core.Launcher
+namespace AppLauncher.Core.Sender
 {
     public class GameData
     {
         private const string FILE = "game.json";
 
-        public required string GameTitle { get; set; }
-        public required string Description { get; set; }
-        public required string Thumbnail {  get; set; }
+        public string GameTitle { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Thumbnail { get; set; } = string.Empty;
         public string GameWindows { get; set; } = "game.exe";
         public string GameMac { get; set; } = "game";
         public string GameLinux { get; set; } = "game";
@@ -31,7 +32,7 @@ namespace PanddLauncher.Core.Launcher
             return JsonSerializer.Deserialize<GameData>(json);
         }
 
-        public async Task Launch()
+        public Process Launch()
         {
             string exe;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -42,7 +43,7 @@ namespace PanddLauncher.Core.Launcher
                 exe = GameLinux;
             else
                 throw new PlatformNotSupportedException("Unsupported OS platform.");
-            await Launcher.Launch.Start(Path.Combine(Directory, exe));
+            return Launcher.Launch.Start(Path.Combine(Directory, exe));
         }
     }
 }

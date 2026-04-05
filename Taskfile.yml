@@ -1,0 +1,39 @@
+version: '3'
+
+vars:
+  PROJECT: ./AppLauncher.Desktop
+  EXE_NAME: AppLauncher
+  CONFIG: release
+  OUTDIR: ./dist
+
+tasks:
+  build:windows:
+    desc: Build for Windows
+    cmds:
+      - dotnet publish {{.PROJECT}} -c {{.CONFIG}} -r win-x64 -p:PublishSingleFile=true --self-contained true -o {{.OUTDIR}}
+      - mv {{.OUTDIR}}/{{.PROJECT}}.exe {{.OUTDIR}}/{{.EXE_NAME}}_win.exe
+
+  build:linux:
+    desc: Build for Linux
+    cmds:
+      - dotnet publish {{.PROJECT}} -c {{.CONFIG}} -r linux-x64 -p:PublishSingleFile=true --self-contained true -o {{.OUTDIR}}
+      - mv {{.OUTDIR}}/{{.PROJECT}} {{.OUTDIR}}/{{.EXE_NAME}}_linux
+  build:mac:
+    desc: Build for macOS
+    cmds:
+      - dotnet publish {{.PROJECT}} -c {{.CONFIG}} -r osx-x64 -p:PublishSingleFile=true --self-contained true -o {{.OUTDIR}}
+      - mv {{.OUTDIR}}/{{.PROJECT}} {{.OUTDIR}}/{{.EXE_NAME}}_mac
+
+  build:all:
+    desc: Build all platforms
+    aliases:
+      - build
+    cmds:
+      - task: build:windows
+      - task: build:linux
+      - task: build:mac
+
+  clean:
+    desc: Clean build
+    cmds:
+      - rm -r {{.OUTDIR}}

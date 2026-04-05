@@ -2,16 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PanddLauncher.Core.Launcher
+namespace AppLauncher.Core.Launcher
 {
     public class Launch
     {
-        public static async Task Start(string exe)
+        public static Process Start(string exe)
         {
+            if (!File.Exists(exe))
+            {
+                throw new FileNotFoundException();
+            }
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -20,7 +25,7 @@ namespace PanddLauncher.Core.Launcher
                 }
             };
             process.Start();
-            await process.WaitForExitAsync();
+            return process;
         } 
     }
 }

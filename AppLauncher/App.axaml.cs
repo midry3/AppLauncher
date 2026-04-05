@@ -2,10 +2,10 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-using PanddLauncher.ViewModels;
-using PanddLauncher.Views;
+using AppLauncher.ViewModels;
+using AppLauncher.Views;
 
-namespace PanddLauncher;
+namespace AppLauncher;
 
 public partial class App : Application
 {

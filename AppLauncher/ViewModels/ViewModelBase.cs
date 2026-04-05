@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace PanddLauncher.ViewModels;
+namespace AppLauncher.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {

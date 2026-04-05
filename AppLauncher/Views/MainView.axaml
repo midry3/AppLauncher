@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AppLauncher.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AppLauncher.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <Grid Grid.ColumnDefinitions="2*,3*">
+      <Grid Name="GameTitleGrid" Grid.ColumnDefinitions="*" Grid.RowDefinitions="*,2*,*">
+          <Border Width="300" Height="200" BorderThickness="2" Padding="5" BorderBrush="White" PointerPressed="Border1_PointerPressed" Background="Black">
+			  <StackPanel Name="Game1" Width="300" Height="200" IsHitTestVisible="False">
+                  <Label Content="{Binding GameTitle1}" IsHitTestVisible="False" FontSize="60" HorizontalAlignment="Center"/>
+              </StackPanel>
+          </Border>
+          <Border Grid.Row="1" Width="300" Height="200" BorderThickness="2" Padding="5" BorderBrush="White" PointerPressed="Border2_PointerPressed" Background="Black">
+              <Border.RenderTransform>
+                  <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+              </Border.RenderTransform>
+			  <StackPanel Width="300" Height="200" IsHitTestVisible="False">
+                  <Label Content="{Binding GameTitle2}" IsHitTestVisible="False" FontSize="60" HorizontalAlignment="Center"/>
+              </StackPanel>
+          </Border>
+          <Border Grid.Row="2" Width="300" Height="200" BorderThickness="2" Padding="5" BorderBrush="White" PointerPressed="Border3_PointerPressed" Background="Black">
+			  <StackPanel Width="300" Height="200" IsHitTestVisible="False">
+                  <Label Content="{Binding GameTitle3}" IsHitTestVisible="False" FontSize="60" HorizontalAlignment="Center"/>
+              </StackPanel>
+          </Border>
+      </Grid>
+      <Grid Grid.Column="1">
+		  <Panel Background="Black">
+			  <Image Source="{Binding Thumbnail}"/>
+          </Panel>
+      </Grid>
+      <StackPanel Name="BlockScreen" IsVisible="False" IsHitTestVisible="False" Grid.ColumnSpan="2" Background="Black" Opacity="0.8">
+		  <Label Content="{Binding NoticePlaying}" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </StackPanel>
+  </Grid>
+</UserControl>

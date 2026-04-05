@@ -3,7 +3,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 
-namespace PanddLauncher.Desktop;
+namespace AppLauncher.Desktop;
 
 class Program
 {
