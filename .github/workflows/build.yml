@@ -13,7 +13,11 @@ permissions:
 
 jobs:
   distribute:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,7 +40,16 @@ jobs:
           git push origin "$VERSION"
 
       - name: Build
-        run: task build
+        if: runner.os == "Windows"
+        run: task build:windows
+
+      - name: Build
+        if: runner.os == "Linux"
+        run: task build:linux
+
+      - name: Build
+        if: runner.os == "Mac"
+        run: task build:mac
 
       - name: Release
         env:
