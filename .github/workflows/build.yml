@@ -40,15 +40,15 @@ jobs:
           git push origin "$VERSION"
 
       - name: Build
-        if: runner.os == "Windows"
+        if: ${{ runner.os == "Windows" }}
         run: task build:windows
 
       - name: Build
-        if: runner.os == "Linux"
+        if: ${{ runner.os == "Linux" }}
         run: task build:linux
 
       - name: Build
-        if: runner.os == "Mac"
+        if: ${{ runner.os == "macOS" }}
         run: task build:mac
 
       - name: Release
