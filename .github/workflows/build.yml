@@ -1,0 +1,46 @@
+name: GitHub Actions for distribution
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Install Task
+        uses: go-task/setup-task@v1
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Create a new tag
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          git fetch --tags --force
+          git tag "$VERSION"
+          git push origin "$VERSION"
+
+      - name: Build
+        run: task build
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          gh release create "$VERSION" dist/* --title "Release v$VERSION" --generate-notes
