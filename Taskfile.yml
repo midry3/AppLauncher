@@ -36,4 +36,4 @@ tasks:
   clean:
     desc: Clean build
     cmds:
-      - rm -r {{.OUTDIR}}
+      - dotnet clean {{.PROJECT}}
