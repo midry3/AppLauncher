@@ -1,7 +1,6 @@
 ﻿using AppLauncher.Core.Sender;
 using Avalonia.Controls;
 using MsBox.Avalonia;
-using System.Threading.Tasks;
 
 namespace AppLauncher.Views;
 
@@ -42,10 +41,13 @@ public partial class MainWindow : Window
         if (!GameDataSender.IsPlaying) return;
         e.Cancel = true;
         var box = MessageBoxManager.GetMessageBoxStandard("終了", "まだゲームが起動中です\nゲームを終了しますか？", MsBox.Avalonia.Enums.ButtonEnum.YesNo);
-        if (await box.ShowAsync() == MsBox.Avalonia.Enums.ButtonResult.Yes)
+        if (await box.ShowWindowDialogAsync(this) == MsBox.Avalonia.Enums.ButtonResult.Yes)
         {
-            GameDataSender.GameProcess.Kill();
-            GameDataSender.GameProcess = null;
+            if (GameDataSender.IsPlaying)
+            {
+                GameDataSender.GameProcess.Kill();
+                GameDataSender.GameProcess = null;
+            }
             Close();
         }
     }

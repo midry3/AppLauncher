@@ -34,9 +34,14 @@
           </Border>
       </Grid>
       <Grid Grid.Column="1">
-		  <Panel Background="Black">
-			  <Image Source="{Binding Thumbnail}"/>
-          </Panel>
+          <Grid Grid.RowDefinitions="2*,1*">
+              <Image Source="{Binding Thumbnail}"/>
+              <Border Grid.Row="1" Background="Black" BorderThickness="2" BorderBrush="White">
+				  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+					 <TextBlock Text="{Binding GameDescription}" FontSize="30" TextWrapping="Wrap"/> 
+                  </ScrollViewer>
+              </Border>
+          </Grid>
       </Grid>
       <StackPanel Name="BlockScreen" IsVisible="False" IsHitTestVisible="False" Grid.ColumnSpan="2" Background="Black" Opacity="0.8">
 		  <Label Content="{Binding NoticePlaying}" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center"/>

@@ -1,13 +1,6 @@
 ﻿using AppLauncher.Core.Sender;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using ReactiveUI;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 
 namespace AppLauncher.ViewModels;
 
@@ -39,6 +32,15 @@ public class MainViewModel : ViewModelBase
         set
         {
             this.RaiseAndSetIfChanged(ref _GameTitle3, value);
+        }
+    }
+    private string _GameDescription = string.Empty;
+    public string GameDescription
+    {
+        get => _GameDescription;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _GameDescription, value);
         }
     }
     private Bitmap? _Thumbnail;
@@ -78,6 +80,7 @@ public class MainViewModel : ViewModelBase
             GameTitle3 = GameDataSender.GameDataList[(GameDataSender.CurrentIndex + 1) % GameDataSender.GameDataList.Count].GameTitle;
         }
         Thumbnail = GameDataSender.Thumbnails[GameDataSender.CurrentIndex];
+        GameDescription = GameDataSender.GameDataList.Count > 0 ? GameDataSender.GameDataList[GameDataSender.CurrentIndex].Description : string.Empty;
     }
 
     private void Load()

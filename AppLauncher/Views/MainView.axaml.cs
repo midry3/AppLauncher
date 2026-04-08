@@ -1,14 +1,8 @@
-﻿using Avalonia;
+﻿using AppLauncher.Core.Sender;
+using AppLauncher.ViewModels;
 using Avalonia.Controls;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Threading;
-using AppLauncher.Core.Launcher;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using AppLauncher.Core.Sender;
-using AppLauncher.ViewModels;
 
 namespace AppLauncher.Views;
 
